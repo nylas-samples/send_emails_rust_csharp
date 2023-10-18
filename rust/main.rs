@@ -13,7 +13,7 @@ dotenv::dotenv().expect("Failed to read .env file");
 
 // Add the ACCESS_TOKEN to the Authorization string
 let mut _access_token = String::new();
-_access_token = "Bearer ".to_owned() +  &env::var("ACCESS_TOKEN").expect("Not found");
+_access_token = "Bearer ".to_owned() +  &env::var("V3_API_KEY").expect("Not found");
 
 // Request the parameters
 println!("Enter a subject: ");
@@ -52,10 +52,12 @@ let _fields = json!({
   ],
   "body": &trim_body,
 });
-       
+    
+    let mut _url = String::new();
+    _url = "https://api.us.nylas.com/v3/grants/".to_owned() + &env::var("GRANT_ID").expect("Not found") + "/messages/send";
     let client = reqwest::Client::new();
     let response = client
-		.post("https://api.nylas.com/send")
+		.post(_url)
 		.header("Authorization", _access_token.to_string())
 		.header("Content-type", "application/json")
 		.header("Accept", "application/json")
