@@ -51,7 +51,7 @@ var body = @"{"
 // Adding the body as a parameter
 request.AddParameter("application/json", body, ParameterType.RequestBody);
 // We send the request
-IRestResponse response = client.Execute(request);
+RestResponse response = client.Execute(request);
 // Print the response
 Console.WriteLine(response.Content);
 // Wait for user input before closing the terminal
